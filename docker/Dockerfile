@@ -28,31 +28,11 @@ RUN apt-get update && \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         mopidy \
-        mopidy-spotify \
-        mopidy-tunein \
         mopidy-soundcloud \
  && python3 -m pip install setuptools \
- && python3 -m pip install https://github.com/natumbri/mopidy-youtube/archive/develop.zip \
- && python3 -m pip install --upgrade youtube-dl \
- && python3 -m pip install Mopidy-Bandcamp \
  && python3 -m pip install Mopidy-Local \
  && python3 -m pip install jinja2 tornado \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
-
-#======================================= INSTALL SPOTIFY WORKAROUND ==============================================#
-
-# Install mopidy-spotify-gstspotify (Hack, not released yet!)
-# (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
-
-RUN export GST_ARCH=$TARGETARCH \
-  && if [ "$TARGETARCH" = "arm" ]; then GST_ARCH=${TARGETARCH}hf; fi \
-  && curl -sLO https://github.com/mariolukas/gst-plugins-rs-builder/releases/download/2023-01-26/gst-plugin-spotify_0.9.8_${GST_ARCH}.deb \
-  && dpkg -i gst-plugin-spotify_0.9.8_${GST_ARCH}.deb \
-  && git clone --depth 1 -b gstspotifysrc-hack https://github.com/kingosticks/mopidy-spotify.git mopidy-spotify \
-  && cd mopidy-spotify \
-  && python3 setup.py install \
-  && cd .. \
-  && rm -rf mopidy-spotify
 
 #======================================= HYDRAPLAY INSTALLATION ==================================================#
 
