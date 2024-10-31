@@ -2,8 +2,9 @@ FROM debian:bookworm-slim AS hydraplay
 ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y ssl-cert \
+RUN apt-get update \
+ && apt-get upgrade \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y ssl-cert \
     wget \
     curl \
     gcc  \
