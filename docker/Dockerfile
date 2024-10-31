@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim as hydraplay
+FROM debian:bullseye-slim AS hydraplay
 ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
