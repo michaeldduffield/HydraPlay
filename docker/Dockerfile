@@ -48,7 +48,7 @@ RUN export LATEST_RELEASE_VER=$(curl -sL https://api.github.com/repos/mariolukas
 
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
-ARG SNAPCASTVERSION=0.28.0
+ARG SNAPCASTVERSION=0.29.0
 ARG TARGETARCH
 
 COPY docker/entrypoint.sh /entrypoint.sh
@@ -58,6 +58,7 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && if [ "$TARGETARCH" = "arm" ]; then SNAPCAST_ARCH=${TARGETARCH}hf; fi \
  && export SNAPCAST_POSTFIX=${SNAPCAST_ARCH} \
  && if [ "$SNAPCASTVERSION" = "0.28.0" ]; then SNAPCAST_POSTFIX=${SNAPCAST_ARCH}-bullseye; fi \
+ && if [ "$SNAPCASTVERSION" = "0.29.0" ]; then SNAPCAST_POSTFIX=${SNAPCAST_ARCH}_bullseye; fi \
  && apt-get update \
  && apt-get install -y libavahi-client3 libavahi-common3 libatomic1 \
  && wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_POSTFIX}.deb \
