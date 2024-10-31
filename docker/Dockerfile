@@ -61,6 +61,9 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && apt-get -f install -y\
+#
+#========================================= FINAL STEPS ===========================================================#
+#
  && mkdir -p /media \
  && mkdir -p /root/.config/snapcast/ \
  &&	touch /tmp/hydra.config.json \
