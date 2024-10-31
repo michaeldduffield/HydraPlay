@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim AS hydraplay
+FROM debian:bookworm-slim AS hydraplay
 ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
@@ -24,14 +24,14 @@ RUN apt-get update && \
     libgirepository1.0-dev \
  && mkdir -p /etc/apt/keyrings \
  && wget -q -O /etc/apt/keyrings/mopidy-archive-keyring.gpg https://apt.mopidy.com/mopidy.gpg \
- && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/bullseye.list \
+ && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/bookworm.list \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         mopidy \
         mopidy-soundcloud \
- && python3 -m pip install setuptools \
- && python3 -m pip install Mopidy-Local \
- && python3 -m pip install jinja2 tornado \
+ && python3 -m pip install setuptools --break-system-packages \
+ && python3 -m pip install Mopidy-Local --break-system-packages \
+ && python3 -m pip install jinja2 tornado --break-system-packages \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 #======================================= HYDRAPLAY INSTALLATION ==================================================#
@@ -57,8 +57,8 @@ COPY src/hydraplay.sh /app/hydraplay.sh
 RUN export SNAPCAST_ARCH=$TARGETARCH \
  && if [ "$TARGETARCH" = "arm" ]; then SNAPCAST_ARCH=${TARGETARCH}hf; fi \
  && export SNAPCAST_POSTFIX=${SNAPCAST_ARCH} \
- && if [ "$SNAPCASTVERSION" = "0.28.0" ]; then SNAPCAST_POSTFIX=${SNAPCAST_ARCH}-bullseye; fi \
- && if [ "$SNAPCASTVERSION" = "0.29.0" ]; then SNAPCAST_POSTFIX=${SNAPCAST_ARCH}_bullseye; fi \
+ && if [ "$SNAPCASTVERSION" = "0.28.0" ]; then SNAPCAST_POSTFIX=${SNAPCAST_ARCH}-bookworm; fi \
+ && if [ "$SNAPCASTVERSION" = "0.29.0" ]; then SNAPCAST_POSTFIX=${SNAPCAST_ARCH}_bookworm; fi \
  && apt-get update \
  && apt-get install -y libavahi-client3 libavahi-common3 libatomic1 \
  && wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_POSTFIX}.deb \
