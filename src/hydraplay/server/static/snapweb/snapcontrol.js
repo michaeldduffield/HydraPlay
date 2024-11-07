@@ -1,4 +1,7 @@
 "use strict";
+
+const SNAPSERVER_WEBSOCKET_PORT_DEFAULT = 1780;
+
 class Host {
     constructor(json) {
         this.fromJson(json);
@@ -897,6 +900,8 @@ window.onload = function () {
         .then((json) => {
         if (json['hydraplay']['use_ws_proxy']) {
             config.baseUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + '/socket/control';
+        } else {
+            config.baseUrl = (window.location.protocol === "https:" ? "wss://" : "ws://") + window.location.hostname + ":" + SNAPSERVER_WEBSOCKET_PORT_DEFAULT;
         };
 
         snapcontrol = new SnapControl(config.baseUrl);
