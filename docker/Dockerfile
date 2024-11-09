@@ -3,7 +3,7 @@ ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
 RUN apt-get update \
- && apt-get upgrade \
+ && apt-get -y upgrade \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y ssl-cert \
     wget \
     curl \
