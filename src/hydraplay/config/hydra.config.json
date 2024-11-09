@@ -36,6 +36,12 @@
 			"bandcamp": {
 				"enabled": false,
 				"identity": "<your_id_here_see_extension_docs>"
+			},
+			"jellyfin": {
+				"enabled": false,
+				"hostname": "<jellyfin_host>",
+				"username": "<username>",
+				"password": "<password>"
 			}
 		}
 	},

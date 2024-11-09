@@ -40,6 +40,12 @@
 			"local": {
 				"enabled": false,
 				"media_dir": "/media/"
+			},
+			"jellyfin": {
+				"enabled": false,
+				"hostname": "<jellyfin_host>",
+				"username": "<username>",
+				"password": "<password>"
 			}
 		}
 	},
