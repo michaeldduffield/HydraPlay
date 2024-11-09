@@ -3,7 +3,7 @@ ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
 RUN apt-get update \
- && apt-get upgrade \
+ && apt-get -y upgrade \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y ssl-cert \
     wget \
     curl \
@@ -32,6 +32,7 @@ RUN apt-get update \
         mopidy-soundcloud \
  && python3 -m pip install setuptools --break-system-packages \
  && python3 -m pip install Mopidy-Local --break-system-packages \
+ && python3 -m pip install Mopidy-Iris --break-system-packages \
  && python3 -m pip install mopidy-jellyfin --break-system-packages \
  && python3 -m pip install jinja2 tornado --break-system-packages \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
